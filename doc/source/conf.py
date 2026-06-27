@@ -62,6 +62,7 @@ sys.path.append(os.path.abspath("./_ext"))
 extensions = [
     "callouts",  # custom extension from _ext folder
     "queryparamrefs",
+    "api_sidebar",  # Pattern B: scope the APIs-tab sidebar to apis/ pages
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
@@ -107,12 +108,12 @@ llms_txt_exclude = [
     "_TableOfContents",
     "cluster/running-applications/job-submission/doc/*",
     "ray-observability/reference/doc/*",
-    "ray-core/api/doc/*",
-    "data/api/doc/*",
-    "train/api/doc/*",
-    "tune/api/doc/*",
-    "serve/api/doc/*",
-    "rllib/package_ref/*",
+    "apis/ray-core/doc/*",
+    "apis/data/doc/*",
+    "apis/train/doc/*",
+    "apis/tune/doc/*",
+    "apis/serve/doc/*",
+    "apis/rllib/*",
 ]
 
 # Exclude Jupyter notebooks from llms-full.txt. sphinx-llms-txt reads each
@@ -372,20 +373,10 @@ docsearch_index_name = "docs-ray"
 remove_from_toctrees = [
     "cluster/running-applications/job-submission/doc/*",
     "ray-observability/reference/doc/*",
-    "ray-core/api/doc/*",
-    "data/api/doc/*",
-    "train/api/doc/*",
-    "tune/api/doc/*",
-    "serve/api/doc/*",
-    "rllib/package_ref/algorithm/*",
-    "rllib/package_ref/policy/*",
-    "rllib/package_ref/models/*",
-    "rllib/package_ref/catalogs/*",
-    "rllib/package_ref/rl_modules/*",
-    "rllib/package_ref/learner/*",
-    "rllib/package_ref/evaluation/*",
-    "rllib/package_ref/replay-buffers/*",
-    "rllib/package_ref/utils/*",
+    # APIs-tab (Pattern B): the moved apis/<lib> stubs are intentionally kept in
+    # the toctree so per-symbol pages are real sidebar nodes (symbol-level nav,
+    # so navigating into a symbol doesn't drop the sidebar). Scoping to the
+    # current library is handled by the apis sidebar's startdepth, not by removal.
 ]
 
 myst_enable_extensions = [
@@ -533,7 +524,7 @@ language = "en"
 # They are not included in the toctree to avoid warnings such as documents not included
 # in any toctree.
 autogen_files = [
-    "data/api/_autogen.rst",
+    "apis/data/_autogen.rst",
 ]
 
 # List of patterns, relative to source directory, that match files and
@@ -542,7 +533,7 @@ autogen_files = [
 exclude_patterns = [
     "templates/*",
     "cluster/running-applications/doc/ray.*",
-    "data/api/ray.data.*.rst",
+    "apis/data/ray.data.*.rst",
     # Hide README.md used for display on the console (anyscale templates)
     "serve/tutorials/**/content/**README.md",
     "data/examples/**/content/**README.md",

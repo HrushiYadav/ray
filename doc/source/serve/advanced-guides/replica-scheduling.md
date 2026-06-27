@@ -89,11 +89,11 @@ Running replicas on the head node isn't recommended for production deployments. 
 
 ## APIs for controlling replica placement
 
-Ray Serve provides several options to control where replicas are scheduled. These parameters are configured through the [`@serve.deployment`](serve-configure-deployment) decorator. For the full API reference, see the [deployment decorator documentation](../api/doc/ray.serve.deployment_decorator.rst).
+Ray Serve provides several options to control where replicas are scheduled. These parameters are configured through the [`@serve.deployment`](serve-configure-deployment) decorator. For the full API reference, see the [deployment decorator documentation](/apis/serve/doc/ray.serve.deployment_decorator.rst).
 
 ### Limit replicas per node with `max_replicas_per_node`
 
-Use [`max_replicas_per_node`](../api/doc/ray.serve.deployment_decorator.rst) to cap the number of replicas of a deployment that can run on a single node. This is useful when:
+Use [`max_replicas_per_node`](/apis/serve/doc/ray.serve.deployment_decorator.rst) to cap the number of replicas of a deployment that can run on a single node. This is useful when:
 - You want to ensure high availability by spreading replicas across nodes
 - You want to avoid resource contention between replicas of the same deployment
 
@@ -125,7 +125,7 @@ applications:
 
 For more details on placement group strategies, see the [Ray Core placement groups documentation](ray-placement-group-doc-ref).
 
-A **placement group** is a Ray primitive that reserves a group of resources (called **bundles**) across one or more nodes in your cluster. When you configure [`placement_group_bundles`](../api/doc/ray.serve.deployment_decorator.rst) for a Ray Serve deployment, Ray creates a dedicated placement group for *each replica*, ensuring those resources are reserved and available for that replica's use.
+A **placement group** is a Ray primitive that reserves a group of resources (called **bundles**) across one or more nodes in your cluster. When you configure [`placement_group_bundles`](/apis/serve/doc/ray.serve.deployment_decorator.rst) for a Ray Serve deployment, Ray creates a dedicated placement group for *each replica*, ensuring those resources are reserved and available for that replica's use.
 
 A **bundle** is a dictionary specifying resource requirements, such as `{"CPU": 2, "GPU": 1}`. When you define multiple bundles, you're telling Ray to reserve multiple sets of resources that can be placed according to your chosen strategy.
 
@@ -144,7 +144,7 @@ The `placement_group_bundle_label_selector` accepts a list of dictionaries.
 
 #### What placement groups and bundles mean
 
-The following diagram illustrates how a deployment with `placement_group_bundles=[{"GPU": 1}, {"GPU": 1}, {"CPU": 4}]` and [`placement_group_strategy`](../api/doc/ray.serve.deployment_decorator.rst)` set to  "STRICT_PACK"` is scheduled:
+The following diagram illustrates how a deployment with `placement_group_bundles=[{"GPU": 1}, {"GPU": 1}, {"CPU": 4}]` and [`placement_group_strategy`](/apis/serve/doc/ray.serve.deployment_decorator.rst)` set to  "STRICT_PACK"` is scheduled:
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -212,7 +212,7 @@ The replica actor is scheduled in the first bundle, so the resources specified i
 
 ### Target nodes with labels
 
-You can use label selectors in [`ray_actor_options`](../api/doc/ray.serve.deployment_decorator.rst) to target replicas to specific nodes. This is the recommended approach for controlling which nodes run your replicas.
+You can use label selectors in [`ray_actor_options`](/apis/serve/doc/ray.serve.deployment_decorator.rst) to target replicas to specific nodes. This is the recommended approach for controlling which nodes run your replicas.
 
 Then configure your deployment to require the specific labels:
 

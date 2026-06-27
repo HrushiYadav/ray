@@ -297,7 +297,7 @@ For example, if you have a big enough single node cluster, Serve schedules all r
 it has enough resources. However, that node becomes the single point of failure.
 
 You can change the spread behavior of your deployment with the `max_replicas_per_node`
-[deployment option](../../serve/api/doc/ray.serve.deployment_decorator.rst), which hard limits the number of replicas of a given deployment that can run on a single node.
+[deployment option](/apis/serve/doc/ray.serve.deployment_decorator.rst), which hard limits the number of replicas of a given deployment that can run on a single node.
 If you set it to 1 then you're effectively strict spreading the deployment replicas. If you don't set it then there's no hard spread constraint and Serve uses the default soft spread mentioned in the preceding paragraph. `max_replicas_per_node` option is per deployment and only affects the spread of replicas within a deployment. There's no spread between replicas of different deployments.
 
 The following code example shows how to set `max_replicas_per_node` deployment option:

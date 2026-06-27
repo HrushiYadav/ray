@@ -123,4 +123,4 @@ To use VisKit (you may have to install some dependencies), run:
 The non-relevant metrics (like timing stats) can be disabled on the left to show only the
 relevant ones (like accuracy, loss, etc.).
 
-.. image:: ../images/ray-tune-viskit.png
+.. image:: /tune/images/ray-tune-viskit.png

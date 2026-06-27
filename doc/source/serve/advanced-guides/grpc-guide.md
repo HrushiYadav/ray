@@ -363,7 +363,7 @@ Serve provides a [gRPC context object](https://grpc.github.io/grpc/python/grpc.h
 to the deployment replica to get information
 about the request as well as setting response metadata such as code and details.
 If the handler function is defined with a `grpc_context` argument, Serve will pass a
-[RayServegRPCContext](../api/doc/ray.serve.grpc_util.RayServegRPCContext.rst) object
+[RayServegRPCContext](/apis/serve/doc/ray.serve.grpc_util.RayServegRPCContext.rst) object
 in for each request. Below is an example of how to set a custom status code,
 details, and trailing metadata. You can also set a status code before raising an
 exception, and Serve will preserve that status code in the error response. This is

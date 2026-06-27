@@ -182,21 +182,21 @@ Broadcast metrics pattern for custom routing
 
 ## Custom routing policies
 
-You can implement custom routing policies by extending Ray Serve's [`RequestRouter`](../../api/doc/ray.serve.request_router.RequestRouter.rst) base class. For detailed examples and step-by-step guides on implementing custom routers, see {ref}`custom-request-router-guide`.
+You can implement custom routing policies by extending Ray Serve's [`RequestRouter`](/apis/serve/doc/ray.serve.request_router.RequestRouter.rst) base class. For detailed examples and step-by-step guides on implementing custom routers, see {ref}`custom-request-router-guide`.
 
 Key methods to implement:
 
-- [`choose_replicas()`](../../api/doc/ray.serve.request_router.RequestRouter.choose_replicas.rst): Select which replicas should handle a request.
-- [`on_request_routed()`](../../api/doc/ray.serve.request_router.RequestRouter.on_request_routed.rst): Update the router state after a request is routed.
-- [`on_replica_actor_died()`](../../api/doc/ray.serve.request_router.RequestRouter.on_replica_actor_died.rst): Clean up the state when a replica dies.
+- [`choose_replicas()`](/apis/serve/doc/ray.serve.request_router.RequestRouter.choose_replicas.rst): Select which replicas should handle a request.
+- [`on_request_routed()`](/apis/serve/doc/ray.serve.request_router.RequestRouter.on_request_routed.rst): Update the router state after a request is routed.
+- [`on_replica_actor_died()`](/apis/serve/doc/ray.serve.request_router.RequestRouter.on_replica_actor_died.rst): Clean up the state when a replica dies.
 
 ### Utility mixins
 
 Ray Serve provides mixin classes that add common functionality to routers. See the {ref}`custom-request-router-guide` for examples:
 
-- [`LocalityMixin`](../../api/doc/ray.serve.request_router.LocalityMixin.rst): Prefers replicas on the same node to reduce network latency.
-- [`MultiplexMixin`](../../api/doc/ray.serve.request_router.MultiplexMixin.rst): Tracks which models are loaded on each replica for LoRA deployments.
-- [`FIFOMixin`](../../api/doc/ray.serve.request_router.FIFOMixin.rst): Ensures FIFO ordering of requests.
+- [`LocalityMixin`](/apis/serve/doc/ray.serve.request_router.LocalityMixin.rst): Prefers replicas on the same node to reduce network latency.
+- [`MultiplexMixin`](/apis/serve/doc/ray.serve.request_router.MultiplexMixin.rst): Tracks which models are loaded on each replica for LoRA deployments.
+- [`FIFOMixin`](/apis/serve/doc/ray.serve.request_router.FIFOMixin.rst): Ensures FIFO ordering of requests.
 
 
 
@@ -247,5 +247,5 @@ class StatefulRouter(RequestRouter):
 
 - {ref}`prefix-aware-routing-guide` - user guide for deploying prefix-aware routing
 - {ref}`custom-request-router-guide` - Ray Serve guide for implementing custom routers
-- [`RequestRouter` API Reference](../../api/doc/ray.serve.request_router.RequestRouter.rst) - complete API documentation
+- [`RequestRouter` API Reference](/apis/serve/doc/ray.serve.request_router.RequestRouter.rst) - complete API documentation
 

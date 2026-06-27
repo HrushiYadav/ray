@@ -22,7 +22,7 @@ deployments:
 
 ## Autoscaling Basic Configuration
 
-Instead of setting a fixed number of replicas for a deployment and manually updating it, you can configure a deployment to autoscale based on incoming traffic. The Serve autoscaler reacts to traffic spikes by monitoring queue sizes and making scaling decisions to add or remove replicas. Turn on autoscaling for a deployment by setting `num_replicas="auto"`. You can further configure it by tuning the [autoscaling_config](../serve/api/doc/ray.serve.config.AutoscalingConfig.rst) in deployment options.
+Instead of setting a fixed number of replicas for a deployment and manually updating it, you can configure a deployment to autoscale based on incoming traffic. The Serve autoscaler reacts to traffic spikes by monitoring queue sizes and making scaling decisions to add or remove replicas. Turn on autoscaling for a deployment by setting `num_replicas="auto"`. You can further configure it by tuning the [autoscaling_config](/apis/serve/doc/ray.serve.config.AutoscalingConfig.rst) in deployment options.
 
 The following config is what we will use in the example in the following section.
 ```yaml

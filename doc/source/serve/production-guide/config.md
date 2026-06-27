@@ -93,7 +93,7 @@ The `grpc_options` are as follows. Note that the gRPC config is global to your R
 
 ## Logging config 
 
-The `logging_config` is global config, you can configure controller & proxy & replica logs. Note that you can also set application and deployment level logging config, which will take precedence over the global config. See logging config API [here](../../serve/api/doc/ray.serve.schema.LoggingConfig.rst) for more details.
+The `logging_config` is global config, you can configure controller & proxy & replica logs. Note that you can also set application and deployment level logging config, which will take precedence over the global config. See logging config API [here](/apis/serve/doc/ray.serve.schema.LoggingConfig.rst) for more details.
 
 (application-config)=
 

@@ -10,7 +10,7 @@ Replica ranks provide a unique identifier for **each replica within a deployment
 
 ## Access replica ranks
 
-You can access the rank and world size from within a deployment through the replica context using [`serve.get_replica_context()`](../api/doc/ray.serve.get_replica_context.rst).
+You can access the rank and world size from within a deployment through the replica context using [`serve.get_replica_context()`](/apis/serve/doc/ray.serve.get_replica_context.rst).
 
 The following example shows how to access replica rank information:
 
@@ -26,9 +26,9 @@ The following example shows how to access replica rank information:
 :language: python
 ```
 
-The [`ReplicaContext`](../api/doc/ray.serve.context.ReplicaContext.rst) provides two key fields:
+The [`ReplicaContext`](/apis/serve/doc/ray.serve.context.ReplicaContext.rst) provides two key fields:
 
-- `rank`: A [`ReplicaRank`](../api/doc/ray.serve.schema.ReplicaRank.rst) object containing rank information for this replica. Access the integer rank value with `.rank`.
+- `rank`: A [`ReplicaRank`](/apis/serve/doc/ray.serve.schema.ReplicaRank.rst) object containing rank information for this replica. Access the integer rank value with `.rank`.
 - `world_size`: The target number of replicas for the deployment.
 
 The `ReplicaRank` object contains three fields:

@@ -10,7 +10,7 @@ Use this guide to learn the essentials of configuring deployments:
 
 ## Configurable parameters
 
-You can also refer to the [API reference](../serve/api/doc/ray.serve.deployment_decorator.rst) for the `@serve.deployment` decorator.
+You can also refer to the [API reference](/apis/serve/doc/ray.serve.deployment_decorator.rst) for the `@serve.deployment` decorator.
 
 - `name` - Name uniquely identifying this deployment within the application. If not provided, the name of the class or function is used.
 - `num_replicas` - Controls the number of replicas to run that handle requests to this deployment. This can be a positive integer, in which case the number of replicas stays constant, or `auto`, in which case the number of replicas will autoscale with a default configuration (see [Ray Serve Autoscaling](serve-autoscaling) for more). Defaults to 1.
@@ -23,7 +23,7 @@ You can also refer to the [API reference](../serve/api/doc/ray.serve.deployment_
 - `health_check_timeout_s` - Duration in seconds, that replicas wait for a health check method to return before considering it as failed. Defaults to 30s.
 - `graceful_shutdown_wait_loop_s` - Duration that replicas wait until there is no more work to be done before shutting down. Defaults to 2s.
 - `graceful_shutdown_timeout_s` - Duration to wait for a replica to gracefully shut down before being forcefully killed. Defaults to 20s.
-- `logging_config` - Logging Config for the deployment (e.g. log level, log directory, JSON log format and so on). See [LoggingConfig](../serve/api/doc/ray.serve.schema.LoggingConfig.rst) for details.
+- `logging_config` - Logging Config for the deployment (e.g. log level, log directory, JSON log format and so on). See [LoggingConfig](/apis/serve/doc/ray.serve.schema.LoggingConfig.rst) for details.
 
 ## How to specify parameters
 
@@ -45,7 +45,7 @@ Use the `@serve.deployment` decorator to specify deployment parameters when you 
 :language: python
 ```
 
-Use the [`.options()`](../serve/api/doc/ray.serve.Deployment.rst) method to modify deployment parameters on an already-defined deployment. Modifying an existing deployment lets you reuse deployment definitions and dynamically set parameters at runtime.
+Use the [`.options()`](/apis/serve/doc/ray.serve.Deployment.rst) method to modify deployment parameters on an already-defined deployment. Modifying an existing deployment lets you reuse deployment definitions and dynamically set parameters at runtime.
 
 ```{literalinclude} ../serve/doc_code/configure_serve_deployment/model_deployment.py
 :start-after: __deployment_end__

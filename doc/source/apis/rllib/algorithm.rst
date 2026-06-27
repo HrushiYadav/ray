@@ -20,7 +20,7 @@ of :py:class:`~ray.tune.trainable.Trainable`
 and thus fully supports distributed hyperparameter tuning for RL.
 
 .. https://docs.google.com/drawings/d/1J0nfBMZ8cBff34e-nSPJZMM1jKOuUL11zFJm6CmWtJU/edit
-.. figure:: ../images/trainer_class_overview.svg
+.. figure:: /rllib/images/trainer_class_overview.svg
     :align: left
 
     **A typical RLlib Algorithm object:** Algorithms are normally comprised of

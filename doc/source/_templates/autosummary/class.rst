@@ -6,7 +6,7 @@
   To opt out, use `:template: autosummary/class_without_autosummary.rst`
 #}
 
-{{ fullname | escape | underline}}
+{{ fullname.split('.')[-1] | escape | underline}}
 
 .. currentmodule:: {{ module }}
 

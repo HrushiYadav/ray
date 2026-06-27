@@ -7,7 +7,7 @@ See :doc:`this user guide </tune/tutorials/tune-metrics>` for more details.
 
 .. seealso::
 
-    :doc:`Tune's built-in loggers </tune/api/logging>` use the ``Callback`` interface.
+    :doc:`Tune's built-in loggers </apis/tune/logging>` use the ``Callback`` interface.
 
 
 Callback Interface

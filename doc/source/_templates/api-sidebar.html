@@ -1,0 +1,7 @@
+<!-- APIs-tab sidebar (Pattern B), scoped to apis/ pages by the api_sidebar
+     extension. Reuses id="main-sidebar" for Ray's #main-sidebar CSS.
+     Non-cached: a render-once cache was measured net-negative at this sidebar
+     size (per-page bs4 rewrite > re-render); see DOC-1209 notes. -->
+<nav id="main-sidebar" class="bd-docs-nav bd-links" aria-label="{{ _('APIs Navigation') }}">
+  <div class="bd-toc-item navbar-nav">{{ generate_toctree_html("sidebar", show_nav_level=1, startdepth=1, maxdepth=4, collapse=True, includehidden=True, titles_only=True) }}</div>
+</nav>
