@@ -20,6 +20,7 @@ from typing import (
 
 from ray.actor import ActorHandle
 from ray.exceptions import ActorDiedError, ActorUnavailableError
+from ray.serve.exceptions import BackPressureError
 from ray.serve._private.common import (
     DeploymentHandleSource,
     DeploymentID,
@@ -507,6 +508,10 @@ class RequestRouter(ABC):
         self.backoff_multiplier = backoff_multiplier
         self.max_backoff_s = max_backoff_s
 
+        # Max number of routing-backoff retries before raising BackPressureError.
+        # -1 means unlimited (default). Updated via update_max_request_retries().
+        self._max_request_retries: int = -1
+
         # Current replicas available to be routed.
         # Updated via `update_replicas`.
         self._replica_id_set: Set[ReplicaID] = set()
@@ -672,6 +677,14 @@ class RequestRouter(ABC):
             self.backoff_multiplier = backoff_multiplier
         if max_backoff_s is not None:
             self.max_backoff_s = max_backoff_s
+
+    def update_max_request_retries(self, max_request_retries: int) -> None:
+        """Update the maximum routing-backoff retries at runtime.
+
+        Args:
+            max_request_retries: Max retries before BackPressureError. -1 = unlimited.
+        """
+        self._max_request_retries = max_request_retries
 
     async def _backoff(self, attempt: int) -> None:
         """Sleep for the appropriate backoff time for a given retry attempt.
@@ -1280,6 +1293,20 @@ class RequestRouter(ABC):
                             break
 
                         backoff_index += 1
+                        if (
+                            pending_request is not None
+                            and not pending_request.future.done()
+                            and self._max_request_retries >= 0
+                            and backoff_index > self._max_request_retries
+                        ):
+                            pending_request.future.set_exception(
+                                BackPressureError(
+                                    f"Request to {self._deployment_id} failed: "
+                                    f"retry limit ({self._max_request_retries}) "
+                                    "exceeded waiting for replica capacity."
+                                )
+                            )
+                            break
                         if backoff_index >= 50 and backoff_index % 50 == 0:
                             routing_time_elapsed = time.time() - start_time
                             warning_log = (
@@ -1356,8 +1383,12 @@ class RequestRouter(ABC):
         except asyncio.CancelledError as e:
             pending_request.future.cancel()
             self._remove_pending_request_from_indices(pending_request)
-
             raise e from None
+        except BackPressureError:
+            # Routing task exhausted the retry budget and failed the future.
+            # Clean up indices before propagating to the caller.
+            self._remove_pending_request_from_indices(pending_request)
+            raise
 
         return replica
 

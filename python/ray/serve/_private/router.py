@@ -807,6 +807,7 @@ class AsyncioRouter:
                 request_router._update_running_replicas(self._running_replicas)
 
             self._request_router = request_router
+            self._request_router.update_max_request_retries(self._max_request_retries)
             self._request_router_initialized.set()
 
             # Log usage telemetry to indicate that custom request router
@@ -868,6 +869,7 @@ class AsyncioRouter:
                 backoff_multiplier=self._backoff_multiplier,
                 max_backoff_s=self._max_backoff_s,
             )
+            self._request_router.update_max_request_retries(self._max_request_retries)
 
         # Guard against the case where request_router is None (e.g., when
         # request_router_class is None and lazy initialization has not yet

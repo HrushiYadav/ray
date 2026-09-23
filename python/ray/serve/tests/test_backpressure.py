@@ -285,5 +285,47 @@ def test_model_composition_backpressure_with_fastapi(
     wait_for_condition(lambda: ray.get(signal_actor.cur_num_waiters.remote()) == 0)
 
 
+def test_max_request_retries(serve_instance):
+    """BackPressureError is raised once max_request_retries routing attempts fail.
+
+    Recipe from abrarsheikh: single replica at max_ongoing_requests=1, unlimited
+    queue, signal blocks request 1. Request 2 backs off through the routing loop
+    since the only replica is saturated. With max_request_retries=1, two failed
+    routing attempts exhaust the budget and raise BackPressureError.
+    """
+    from ray.serve.config import RequestRouterConfig
+
+    signal_actor = SignalActor.remote()
+
+    @serve.deployment(
+        num_replicas=1,
+        max_ongoing_requests=1,
+        max_queued_requests=-1,
+        request_router_config=RequestRouterConfig(max_request_retries=1),
+    )
+    class Deployment:
+        async def __call__(self) -> str:
+            await signal_actor.wait.remote()
+            return "ok"
+
+    handle = serve.run(Deployment.bind())
+
+    # Block the replica's only slot.
+    first_ref = handle.remote()
+    wait_for_condition(lambda: ray.get(signal_actor.cur_num_waiters.remote()) == 1)
+
+    # This request cannot find capacity; after max_request_retries routing
+    # backoff attempts it must raise BackPressureError instead of hanging.
+    with pytest.raises(BackPressureError):
+        handle.remote().result(timeout=30)
+
+    # Unblock and verify the first request completes normally.
+    ray.get(signal_actor.send.remote())
+    assert first_ref.result() == "ok"
+
+    ray.get(signal_actor.send.remote(clear=True))
+    wait_for_condition(lambda: ray.get(signal_actor.cur_num_waiters.remote()) == 0)
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main(["-v", "-s", __file__]))
